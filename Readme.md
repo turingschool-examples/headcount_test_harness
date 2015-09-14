@@ -2,6 +2,7 @@ Headcount Test Harness
 ======================
 
 For testing [headcount](https://github.com/turingschool-examples/headcount).
+Project description is [here](https://github.com/turingschool/curriculum/blob/master/source/projects/headcount.markdown)
 
 
 How to run
