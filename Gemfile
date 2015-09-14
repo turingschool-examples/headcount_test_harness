@@ -1,5 +1,7 @@
-source 'https://www.rubygems.org'
+source 'https://rubygems.org'
 
 gem 'mrspec'
 gem 'minitest'
 gem 'rake'
+gem 'cane'
+gem 'reek'
