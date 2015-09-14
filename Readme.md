@@ -12,3 +12,19 @@ How to run
   `headcount` and `heacount_test_harness`.
 2. Run `bundle install` (if it doesn't know what `bundle` is, then run `gem install bundler`)
 3. Run `rake test:all`
+
+How to run individual tests
+---------------------------
+
+You can use `mrspec` directly, it is recommended that you also use bundler when running.
+
+```sh
+# run all tests
+$ bundle exec mrspec
+
+# run a test tagged with "current"
+$ bundle exec mrspec -t current
+
+# run until the first failure, then stop
+$ bundle exec mrspec --fail-fast
+```
