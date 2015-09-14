@@ -11,7 +11,7 @@ How to run
    In other words, if you did an `ls`, you should see directories for both
   `headcount` and `heacount_test_harness`.
 2. Run `bundle install` (if it doesn't know what `bundle` is, then run `gem install bundler`)
-3. Run `rake test:all`
+3. Run `rake` for the complete set of default tests (this must pass in order to get a 3 on functional requirements)
 
 How to run individual tests
 ---------------------------

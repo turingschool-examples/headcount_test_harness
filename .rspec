@@ -1,0 +1,3 @@
+--color
+--require error_to_communicate/rspec_formatter
+--format WhatWeveGotHereIsAnErrorToCommunicate::RSpecFormatter
