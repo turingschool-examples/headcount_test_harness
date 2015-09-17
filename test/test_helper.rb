@@ -15,4 +15,8 @@ class TestHarness < Minitest::Test
   def repo
     TestHarness.repo
   end
+
+  def a20
+    repo.find_by_name('ACADEMY 20')
+  end
 end

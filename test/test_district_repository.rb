@@ -12,7 +12,7 @@ class TestDistrictRepository < TestHarness
     end
 
     def test_returns_the_correct_district
-      assert_equal 'ACADEMY 20', repo.find_by_name('ACADEMY 20').name
+      assert_equal 'ACADEMY 20', a20.name
     end
   end
 

@@ -6,10 +6,10 @@ class TestDistrict < TestHarness
   end
 
   def test_enrollment_returns_the_districts_enrollment
-    assert_equal 22620, repo.find_by_name('ACADEMY 20').enrollment.in_year(2009)
+    assert_equal 22620, a20.enrollment.in_year(2009)
   end
 
   def test_statewide_testing_returns_the_districts_statewide_testing
-    assert_equal 0.857, repo.find_by_name('ACADEMY 20').statewide_testing.proficient_for_subject_by_grade_in_year(:math, 3, 2008)
+    assert_equal 0.857, a20.statewide_testing.proficient_for_subject_by_grade_in_year(:math, 3, 2008)
   end
 end
