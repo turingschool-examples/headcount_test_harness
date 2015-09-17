@@ -13,6 +13,6 @@ class TestHarness < Minitest::Test
   end
 
   def repo
-    self.class.repo
+    TestHarness.repo
   end
 end
