@@ -28,7 +28,7 @@ class TestDistrictRepository < TestHarness
     end
 
     def test_it_matches_case_insensitive
-      assert_equal ['COLORADO SPRINGS 11', 'Colorado'],
+      assert_equal ['COLORADO', 'COLORADO SPRINGS 11'],
                    repo.find_all_matching('oRa').map { |district| district.name }.sort
     end
   end
