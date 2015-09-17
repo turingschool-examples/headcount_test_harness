@@ -2,12 +2,19 @@ require_relative 'test_helper'
 
 class TestLoadingDistricts < TestHarness
   def test_knows_all_the_enrollment_data
+    # nil when DNE
+    assert_equal nil, repo.find_by_name("not a real district")
+
+    # case insensitive
     district = repo.find_by_name("ACADEMY 20")
+    assert_equal district, repo.find_by_name("aCaDeMy 20")
+
+    # got the correct district
     assert_equal 22620, district.enrollment.in_year(2009)
     assert_equal 0.895, district.enrollment.graduation_rate.for_high_school_in_year(2010)
-
-    # FIXME: Delete 4th grade b/c it doesn't have the subjects!!
     assert_equal 0.857, district.statewide_testing.proficient_for_subject_by_grade_in_year(:math, 3, 2008)
+
+    # find_all_matching - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
   end
 end
 
