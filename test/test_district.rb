@@ -6,7 +6,7 @@ class TestDistrict < TestHarness
   end
 
   def test_enrollment_returns_the_districts_enrollment
-    assert_equal 22620, a20.enrollment.in_year(2009)
+    assert_equal 22620, a20.enrollment.participation_in_year(2009)
   end
 
   def test_statewide_testing_returns_the_districts_statewide_testing
