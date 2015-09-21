@@ -26,6 +26,24 @@ class TestStatewideTesting < TestHarness
       }
       assert_equal expected, actual
     end
+
+    def test_it_omits_LNE_Excel_bullshit_0s_and_missing_data
+      # Writing,2013,Percent,LNE
+      # Math,2009,Percent,#VALUE!
+      woodlin  = repo.find_by_name('WOODLIN R-104').statewide_testing
+      expected = {}
+      assert_equal expected, woodlin.proficient_by_grade(3)
+
+      # Math,2009,Percent,
+      east_yuma = repo.find_by_name('EAST YUMA COUNTY RJ-2').statewide_testing
+      expected  = {2008=>{:writing=>0.341}, 2009=>{:writing=>0.402}}
+      assert_equal expected, east_yuma.proficient_by_grade(3)
+
+      # Writing,2013,Percent,N/A
+      west_yuma = repo.find_by_name('WEST YUMA COUNTY RJ-1').statewide_testing
+      expected  = {2008=>{:math=>0.512}, 2009=>{:math=>0.458}}
+      assert_equal expected, west_yuma.proficient_by_grade(3)
+    end
   end
 
 
