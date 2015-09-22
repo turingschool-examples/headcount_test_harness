@@ -4,21 +4,21 @@ class TestEconomicProfile < TestHarness
   class TestFreeOrReducedLunchByYear < TestEconomicProfile
     def test_truncates_to_three_digits
       expected = {
-        2000 => 0.020,
-        2001 => 0.024,
-        2002 => 0.027,
-        2003 => 0.030,
-        2004 => 0.034,
+        2000 => 0.040,
+        2001 => 0.047,
+        2002 => 0.048,
+        2003 => 0.060,
+        2004 => 0.059,
         2005 => 0.058,
-        2006 => 0.041,
-        2007 => 0.050,
-        2008 => 0.061,
-        2009 => 0.070,
-        2010 => 0.079,
-        2011 => 0.084,
+        2006 => 0.072,
+        2007 => 0.080,
+        2008 => 0.093,
+        2009 => 0.103,
+        2010 => 0.113,
+        2011 => 0.119,
         2012 => 0.125,
-        2013 => 0.091,
-        2014 => 0.087,
+        2013 => 0.131,
+        2014 => 0.127,
       }
       assert_equal expected, a20.economic_profile.free_or_reduced_lunch_by_year
     end
