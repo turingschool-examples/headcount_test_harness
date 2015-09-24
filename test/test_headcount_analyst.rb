@@ -9,7 +9,7 @@ class TestHeadcountAnalyst < TestHarness
 
   def test_kindergarten_participation_rate_variation_against_state
     ha = HeadcountAnalyst.new(repo)
-    assert_equal 0.766, ha.kindergarten_participation_rate_variation('ACADEMY 20', against: 'state')
+    assert_equal 0.766, ha.kindergarten_participation_rate_variation('ACADEMY 20', against: 'Colorado')
     assert_equal 1.0, ha.kindergarten_participation_rate_variation('ACADEMY 20', against: 'ACADEMY 20')
     assert_equal 0.406, ha.kindergarten_participation_rate_variation('ACADEMY 20', against: 'ASPEN 1')
     assert_raises(UnknownDataError) { ha.kindergarten_participation_rate_variation('ACADEMY 20', against: 'NEW YORK') }
@@ -26,14 +26,12 @@ class TestHeadcountAnalyst < TestHarness
     ha = HeadcountAnalyst.new(repo)
     assert_equal true, ha.kindergarten_participation_correlates_with_household_income(for: 'DEL NORTE C-7')
     assert_equal false, ha.kindergarten_participation_correlates_with_household_income(for: 'AGUILAR REORGANIZED 6')
-    assert_equal false, ha.kindergarten_participation_correlates_with_household_income(for: 'state')
+    assert_equal false, ha.kindergarten_participation_correlates_with_household_income(for: 'Colorado')
   end
 
   def test_kindergarten_participation_against_high_school_graduation_for_one_district
     ha = HeadcountAnalyst.new(repo)
     assert_equal 0.641, ha.kindergarten_participation_against_high_school_graduation('ACADEMY 20')
-    assert_equal 0.255, ha.kindergarten_participation_rate_variation('CHERRY CREEK 5', against: 'state')
-    assert_equal 1.144, ha.grad_diff_from_state('CHERRY CREEK 5')
     assert_equal 0.222, ha.kindergarten_participation_against_high_school_graduation('CHERRY CREEK 5')
   end
 
@@ -41,7 +39,6 @@ class TestHeadcountAnalyst < TestHarness
     ha = HeadcountAnalyst.new(repo)
     assert_equal false, ha.kindergarten_participation_correlates_with_high_school_graduation('CHERRY CREEK 5')
     assert_equal true, ha.kindergarten_participation_correlates_with_high_school_graduation('ARICKAREE R-2')
-    assert_equal false, ha.kindergarten_participation_correlates_with_high_school_graduation('state')
+    assert_equal false, ha.kindergarten_participation_correlates_with_high_school_graduation('Colorado')
   end
-
 end
