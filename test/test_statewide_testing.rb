@@ -132,7 +132,7 @@ class TestStatewideTesting < TestHarness
       assert_raises UnknownDataError do
         a20.statewide_testing.proficient_for_subject_by_race_in_year(:science, :asian, 2012)
       end
-      assert_raises UnknownDataError do
+      assert_raises UnknownRaceError do
         a20.statewide_testing.proficient_for_subject_by_race_in_year(:math, :not_a_race, 2012)
       end
       assert_raises UnknownDataError do
