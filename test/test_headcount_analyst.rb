@@ -27,7 +27,7 @@ class TestHeadcountAnalyst < TestHarness
     ha = HeadcountAnalyst.new(repo)
     #assert_equal true, ha.kindergarten_participation_correlates_with_household_income(for: 'DEL NORTE C-7')
     assert_equal false, ha.kindergarten_participation_correlates_with_household_income(for: 'AGUILAR REORGANIZED 6')
-    assert_equal false, ha.kindergarten_participation_correlates_with_household_income(for: 'COLORADO')
+    assert_equal true, ha.kindergarten_participation_correlates_with_household_income(for: 'COLORADO')
   end
 
   def test_kindergarten_participation_against_high_school_graduation_for_one_district
