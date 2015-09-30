@@ -55,7 +55,7 @@ class TestStatewideTesting < TestHarness
     end
 
     def test_grades_outside_the_accepted_domain_raise_an_UnknownDataError
-      assert_raises UnknownDataError do
+      assert_raises UnknownRaceError do
         a20.statewide_testing.proficient_by_race_or_ethnicity(:relay)
       end
     end
