@@ -50,7 +50,7 @@ class IterationOneTest < Minitest::Test
                                   :high_school_graduation => "./data/High school graduation rates.csv"}})
     ha = HeadcountAnalyst.new(dr)
 
-    assert ha.kindergarten_participation_correlates_with_high_school_graduation(:for => 'STATEWIDE')
+    refute ha.kindergarten_participation_correlates_with_high_school_graduation(:for => 'STATEWIDE')
   end
 
   def test_kindergarten_hs_prediction_multi_district
