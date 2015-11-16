@@ -46,3 +46,15 @@ To load in dependencies for the spec harness.
 To test your implementation against the evaluation specs, run:
 
     $ rake
+
+## Note on the Spec Data
+
+The "answers" for the various tests in this test harness is being compiled from
+previous student projects. It is very possible that there will be mistakes along the
+way, and we would love to get your help in finding and correcting these
+
+To help this, we'll adopt the following process:
+
+If you encounter a mistake in the spec harness data, open a pull request to this
+repository fixing the mistake. If 5 students comment with a `+1` on the pull request
+indicating that they also got the same answer, we will accept the change.
