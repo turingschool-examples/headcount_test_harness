@@ -1,8 +1,3 @@
-lib_dir = File.expand_path '../../headcount/lib', __dir__
-$LOAD_PATH.unshift lib_dir
-require_relative File.expand_path('headcount', lib_dir)
-
-
 class TestHarness < Minitest::Test
   def self.data_dir
     File.expand_path '../data', __dir__
