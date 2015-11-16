@@ -1,8 +1,12 @@
-task default: :base
+require 'rake/testtask'
+
+task default: :test
 
 desc 'Pass this suite to get a 3 on base functionality'
-task :base do
-  sh 'bundle exec mrspec'
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/*iteration*.rb']
+  t.verbose = true
 end
 
 namespace :sanitation do
