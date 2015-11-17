@@ -54,6 +54,19 @@ class IterationTwoTest < Minitest::Test
     assert_equal expected, testing.proficient_by_race_or_ethnicity(:white)
   end
 
+  def test_proficiency_by_subject_and_year
+    str = statewide_repo
+
+    testing = str.find_by_name("ACADEMY 20")
+    assert_equal 0.653, testing.proficient_for_subject_by_grade_in_year(:math, 8, 2011)
+
+    testing = str.find_by_name("WRAY SCHOOL DISTRICT RD-2")
+    assert_equal 0.89, testing.proficient_for_subject_by_grade_in_year(:reading, 3, 2014)
+
+    testing = str.find_by_name("PLATEAU VALLEY 50")
+    assert_equal "N/A", testing.proficient_for_subject_by_grade_in_year(:reading, 8, 2011)
+  end
+
 
   def statewide_repo
     str = StatewideTestRepository.new
