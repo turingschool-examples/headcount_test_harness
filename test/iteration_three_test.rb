@@ -5,7 +5,7 @@ require_relative "../../headcount/lib/headcount_analyst"
 require_relative "../../headcount/lib/economic_profile_repository"
 require_relative "../../headcount/lib/economic_profile"
 
-class IterationTwoTest < Minitest::Test
+class IterationThreeTest < Minitest::Test
   def test_economic_profile_basics
     data = {:median_household_income => {2015 => 50000, 2014 => 60000},
             :children_in_poverty => {2012 => 0.1845},
