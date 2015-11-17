@@ -4,6 +4,7 @@ require_relative "../../headcount/lib/district_repository"
 require_relative "../../headcount/lib/district"
 require_relative "../../headcount/lib/enrollment"
 require_relative "../../headcount/lib/headcount_analyst"
+require_relative "../../headcount/lib/statewide_test"
 
 class IterationTwoTest < Minitest::Test
   def test_statewide_testing_repository_basics
@@ -81,6 +82,40 @@ class IterationTwoTest < Minitest::Test
     assert_equal 0.437, testing.proficient_for_subject_by_race_in_year(:math, :hispanic, 2014)
     assert_equal 0.76, testing.proficient_for_subject_by_race_in_year(:reading, :white, 2013)
     assert_equal 0.375, testing.proficient_for_subject_by_race_in_year(:writing, :hispanic, 2014)
+  end
+
+  def test_unknown_data_errors
+    skip
+  end
+
+  def test_statewide_testing_relationships
+    dr = DistrictRepository.new
+    dr.load_data({
+                   :enrollment => {
+                     :kindergarten => "./data/Kindergartners in full-day program.csv",
+                     :high_school_graduation => "./data/High school graduation rates.csv",
+                   },
+                   :statewide_testing => {
+                     :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+                     :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+                     :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+                     :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+                     :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
+                   }
+                 })
+    district = dr.find_by_name("ACADEMY 20")
+    statewide_test = district.statewide_test
+    assert statewide_test.is_a?(StatewideTest)
+
+    ha = HeadcountAnalyst.new(dr)
+
+    assert_equal ["WILEY RE-13 JT", 0.3], ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :math)
+    assert_equal ["FRENCHMAN RE-3", 0.175], ha.top_statewide_test_year_over_year_growth(grade: 8, subject: :reading)
+    assert_equal ["BETHUNE R-5", 0.148], ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :writing)
+  end
+
+  def test_insufficient_information_errors
+    skip
   end
 
   def statewide_repo
