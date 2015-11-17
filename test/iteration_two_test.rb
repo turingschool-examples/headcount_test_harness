@@ -112,6 +112,9 @@ class IterationTwoTest < Minitest::Test
     assert_equal ["WILEY RE-13 JT", 0.3], ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :math)
     assert_equal ["FRENCHMAN RE-3", 0.175], ha.top_statewide_test_year_over_year_growth(grade: 8, subject: :reading)
     assert_equal ["BETHUNE R-5", 0.148], ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :writing)
+
+    assert_equal ["OTIS R-3", 0.044], ha.top_statewide_test_year_over_year_growth(grade: 3)
+    assert_equal ["OURAY R-1", 0.073], ha.top_statewide_test_year_over_year_growth(grade: 8)
   end
 
   def test_insufficient_information_errors
