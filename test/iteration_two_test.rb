@@ -85,7 +85,24 @@ class IterationTwoTest < Minitest::Test
   end
 
   def test_unknown_data_errors
-    skip
+    str = statewide_repo
+    testing = str.find_by_name("AULT-HIGHLAND RE-9")
+
+    assert_raises(UnknownDataError) do
+      testing.proficient_by_grade(1)
+    end
+
+    assert_raises(UnknownDataError) do
+      testing.proficient_for_subject_by_grade_in_year(:pizza, 8, 2011)
+    end
+
+    assert_raises(UnknownDataError) do
+      testing.proficient_for_subject_by_race_in_year(:reading, :pizza, 2013)
+    end
+
+    assert_raises(UnknownDataError) do
+      testing.proficient_for_subject_by_race_in_year(:pizza, :white, 2013)
+    end
   end
 
   def test_statewide_testing_relationships
@@ -118,7 +135,12 @@ class IterationTwoTest < Minitest::Test
   end
 
   def test_insufficient_information_errors
-    skip
+    dr = district_repo
+    ha = HeadcountAnalyst.new(dr)
+
+    assert_raises(InsufficientInformationError) do
+      ha.top_statewide_test_year_over_year_growth(subject: :math)
+    end
   end
 
   def district_repo
