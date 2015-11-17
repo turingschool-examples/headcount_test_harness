@@ -131,7 +131,7 @@ class IterationTwoTest < Minitest::Test
     ha = HeadcountAnalyst.new(dr)
 
     top_performer = ha.top_statewide_test_year_over_year_growth(grade: 8, :weighting => {:math => 0.5, :reading => 0.5, :writing => 0.0})
-    assert_equal ["OURAY R-1", 0.153], top_performer
+    assert_equal ["OURAY R-1", 0.307], top_performer
   end
 
   def test_insufficient_information_errors
