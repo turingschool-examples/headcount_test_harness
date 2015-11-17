@@ -67,6 +67,21 @@ class IterationTwoTest < Minitest::Test
     assert_equal "N/A", testing.proficient_for_subject_by_grade_in_year(:reading, 8, 2011)
   end
 
+  def test_proficiency_by_subject_race_and_year
+    str = statewide_repo
+
+    testing = str.find_by_name("AULT-HIGHLAND RE-9")
+    assert_equal 0.611, testing.proficient_for_subject_by_race_in_year(:math, :white, 2012)
+    assert_equal 0.310, testing.proficient_for_subject_by_race_in_year(:math, :hispanic, 2014)
+    assert_equal 0.794, testing.proficient_for_subject_by_race_in_year(:reading, :white, 2013)
+    assert_equal 0.278, testing.proficient_for_subject_by_race_in_year(:writing, :hispanic, 2014)
+
+    testing = str.find_by_name("BUFFALO RE-4")
+    assert_equal 0.65, testing.proficient_for_subject_by_race_in_year(:math, :white, 2012)
+    assert_equal 0.437, testing.proficient_for_subject_by_race_in_year(:math, :hispanic, 2014)
+    assert_equal 0.76, testing.proficient_for_subject_by_race_in_year(:reading, :white, 2013)
+    assert_equal 0.375, testing.proficient_for_subject_by_race_in_year(:writing, :hispanic, 2014)
+  end
 
   def statewide_repo
     str = StatewideTestRepository.new
