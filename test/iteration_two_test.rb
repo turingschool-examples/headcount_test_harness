@@ -31,11 +31,27 @@ class IterationTwoTest < Minitest::Test
     str = statewide_repo
     testing = str.find_by_name("ACADEMY 20")
     expected = { 2011 => {math: 0.816, reading: 0.897, writing: 0.826},
-              2012 => {math: 0.818, reading: 0.893, writing: 0.808},
-              2013 => {math: 0.805, reading: 0.901, writing: 0.810},
-              2014 => {math: 0.800, reading: 0.855, writing: 0.789},
-            }
+                 2012 => {math: 0.818, reading: 0.893, writing: 0.808},
+                 2013 => {math: 0.805, reading: 0.901, writing: 0.810},
+                 2014 => {math: 0.800, reading: 0.855, writing: 0.789},
+               }
     assert_equal expected, testing.proficient_by_race_or_ethnicity(:asian)
+
+    expected = {2011=>{:math=>0.451, :reading=>0.688, :writing=>0.503},
+                2012=>{:math=>0.467, :reading=>0.75, :writing=>0.528},
+                2013=>{:math=>0.473, :reading=>0.738, :writing=>0.531},
+                2014=>{:math=>0.418, :reading=>0.006, :writing=>0.453}}
+
+    testing = str.find_by_name("WOODLAND PARK RE-2")
+
+    assert_equal expected, testing.proficient_by_race_or_ethnicity(:hispanic)
+
+    testing = str.find_by_name("PAWNEE RE-12")
+    expected = {2011=>{:math=>0.581, :reading=>0.792, :writing=>0.698},
+                2012=>{:math=>0.452, :reading=>0.773, :writing=>0.622},
+                2013=>{:math=>0.469, :reading=>0.714, :writing=>0.51},
+                2014=>{:math=>0.468, :reading=>0.006, :writing=>0.488}}
+    assert_equal expected, testing.proficient_by_race_or_ethnicity(:white)
   end
 
 
