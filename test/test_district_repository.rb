@@ -24,12 +24,12 @@ class TestDistrictRepository < TestHarness
 
     def test_it_returns_all_districts_matching_the_name_fragment
       assert_equal ['IDALIA SCHOOL DISTRICT RJ-3', 'WRAY SCHOOL DISTRICT RD-2'],
-                   repo.find_all_matching('DISTRICT R').map { |district| district.name }.sort
+                   repo.find_all_matching('DISTRICT R')
     end
 
     def test_it_matches_case_insensitive
       assert_equal ['COLORADO', 'COLORADO SPRINGS 11'],
-                   repo.find_all_matching('oRa').map { |district| district.name }.sort
+                   repo.find_all_matching('oRa')
     end
   end
 end
