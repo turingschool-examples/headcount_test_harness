@@ -122,8 +122,8 @@ class IterationTwoTest < Minitest::Test
     dr = district_repo
     ha = HeadcountAnalyst.new(dr)
 
-    assert_equal [["OTIS R-3", 0.044], ["some thing", 0.1]], ha.top_statewide_test_year_over_year_growth(grade: 3)
-    assert_equal ["OURAY R-1", 0.073], ha.top_statewide_test_year_over_year_growth(grade: 8)
+    assert_equal ["OTIS R-3", 0.134], ha.top_statewide_test_year_over_year_growth(grade: 3)
+    assert_equal ["OURAY R-1", 0.220], ha.top_statewide_test_year_over_year_growth(grade: 8)
   end
 
   def test_weighting_results_by_subject
