@@ -114,7 +114,7 @@ class IterationTwoTest < Minitest::Test
     ha = HeadcountAnalyst.new(dr)
 
     assert_equal ["WILEY RE-13 JT", 0.3], ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :math)
-    assert_equal ["FRENCHMAN RE-3", 0.175], ha.top_statewide_test_year_over_year_growth(grade: 8, subject: :reading)
+    assert_equal ["COTOPAXI RE-3", 0.13], ha.top_statewide_test_year_over_year_growth(grade: 8, subject: :reading)
     assert_equal ["BETHUNE R-5", 0.148], ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :writing)
   end
 
@@ -122,8 +122,8 @@ class IterationTwoTest < Minitest::Test
     dr = district_repo
     ha = HeadcountAnalyst.new(dr)
 
-    assert_equal ["OTIS R-3", 0.134], ha.top_statewide_test_year_over_year_growth(grade: 3)
-    assert_equal ["OURAY R-1", 0.220], ha.top_statewide_test_year_over_year_growth(grade: 8)
+    assert_equal ["MANCOS RE-6", 0.071], ha.top_statewide_test_year_over_year_growth(grade: 3)
+    assert_equal ["OURAY R-1", 0.11], ha.top_statewide_test_year_over_year_growth(grade: 8)
   end
 
   def test_weighting_results_by_subject
@@ -131,7 +131,7 @@ class IterationTwoTest < Minitest::Test
     ha = HeadcountAnalyst.new(dr)
 
     top_performer = ha.top_statewide_test_year_over_year_growth(grade: 8, :weighting => {:math => 0.5, :reading => 0.5, :writing => 0.0})
-    assert_equal ["OURAY R-1", 0.307], top_performer
+    assert_equal ["OURAY R-1", 0.153], top_performer
   end
 
   def test_insufficient_information_errors
