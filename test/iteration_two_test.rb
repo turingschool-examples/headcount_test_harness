@@ -113,17 +113,25 @@ class IterationTwoTest < Minitest::Test
 
     ha = HeadcountAnalyst.new(dr)
 
-    assert_equal ["WILEY RE-13 JT", 0.3], ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :math)
-    assert_equal ["COTOPAXI RE-3", 0.13], ha.top_statewide_test_year_over_year_growth(grade: 8, subject: :reading)
-    assert_equal ["BETHUNE R-5", 0.148], ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :writing)
+    assert_equal "WILEY RE-13 JT", ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :math).first
+    assert_in_delta 0.3, ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :math).last, 0.005
+
+    assert_equal "COTOPAXI RE-3", ha.top_statewide_test_year_over_year_growth(grade: 8, subject: :reading).first
+    assert_in_delta 0.13, ha.top_statewide_test_year_over_year_growth(grade: 8, subject: :reading).last, 0.005
+
+    assert_equal "BETHUNE R-5", ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :writing).first
+    assert_in_delta 0.148, ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :writing).last, 0.005
   end
 
   def test_finding_top_overall_districts
     dr = district_repo
     ha = HeadcountAnalyst.new(dr)
 
-    assert_equal ["MANCOS RE-6", 0.071], ha.top_statewide_test_year_over_year_growth(grade: 3)
-    assert_equal ["OURAY R-1", 0.11], ha.top_statewide_test_year_over_year_growth(grade: 8)
+    assert_equal "MANCOS RE-6", ha.top_statewide_test_year_over_year_growth(grade: 3).first
+    assert_in_delta 0.071, ha.top_statewide_test_year_over_year_growth(grade: 3).last, 0.005
+
+    assert_equal "OURAY R-1", ha.top_statewide_test_year_over_year_growth(grade: 8).first
+    assert_equal 0.11, ha.top_statewide_test_year_over_year_growth(grade: 8).last, 0.005
   end
 
   def test_weighting_results_by_subject
@@ -131,7 +139,8 @@ class IterationTwoTest < Minitest::Test
     ha = HeadcountAnalyst.new(dr)
 
     top_performer = ha.top_statewide_test_year_over_year_growth(grade: 8, :weighting => {:math => 0.5, :reading => 0.5, :writing => 0.0})
-    assert_equal ["OURAY R-1", 0.153], top_performer
+    assert_equal "OURAY R-1", top_performer.first
+    assert_in_delta 0.153, top_performer.last, 0.005
   end
 
   def test_insufficient_information_errors

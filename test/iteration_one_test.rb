@@ -18,8 +18,10 @@ class IterationOneTest < Minitest::Test
 
 
     expected = {2010=>0.738, 2011=>0.751, 2012=>0.777, 2013=>0.713, 2014=>0.757}
-    assert_equal(expected, e.graduation_rate_by_year)
-    assert_equal 0.738, e.graduation_rate_in_year(2010)
+    expected.each do |k,v|
+      assert_in_delta v, e.graduation_rate_by_year[k], 0.005
+    end
+    assert_in_delta 0.738, e.graduation_rate_in_year(2010), 0.005
   end
 
   def test_high_school_versus_kindergarten_analysis
@@ -28,8 +30,8 @@ class IterationOneTest < Minitest::Test
                                   :high_school_graduation => "./data/High school graduation rates.csv"}})
     ha = HeadcountAnalyst.new(dr)
 
-    assert_equal 0.548, ha.kindergarten_participation_against_high_school_graduation('MONTROSE COUNTY RE-1J')
-    assert_equal 0.800, ha.kindergarten_participation_against_high_school_graduation('STEAMBOAT SPRINGS RE-2')
+    assert_in_delta 0.548, ha.kindergarten_participation_against_high_school_graduation('MONTROSE COUNTY RE-1J'), 0.005
+    assert_in_delta 0.800, ha.kindergarten_participation_against_high_school_graduation('STEAMBOAT SPRINGS RE-2'), 0.005
   end
 
   def test_does_kindergarten_participation_predict_hs_graduation
