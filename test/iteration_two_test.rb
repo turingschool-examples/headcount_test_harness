@@ -127,7 +127,7 @@ class IterationTwoTest < Minitest::Test
     dr = district_repo
     ha = HeadcountAnalyst.new(dr)
 
-    assert_equal "MANCOS RE-6", ha.top_statewide_test_year_over_year_growth(grade: 3).first
+    assert_equal "SANGRE DE CRISTO RE-22J", ha.top_statewide_test_year_over_year_growth(grade: 3).first
     assert_in_delta 0.071, ha.top_statewide_test_year_over_year_growth(grade: 3).last, 0.005
 
     assert_equal "OURAY R-1", ha.top_statewide_test_year_over_year_growth(grade: 8).first
