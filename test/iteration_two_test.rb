@@ -25,7 +25,11 @@ class IterationTwoTest < Minitest::Test
                }
 
     testing = str.find_by_name("ACADEMY 20")
-    assert_equal expected, testing.proficient_by_grade(3)
+    expected.each do |year, data|
+      data.each do |subject, proficiency|
+        assert_in_delta proficiency, testing.proficient_by_grade(3)[year][subject], 0.005
+      end
+    end
   end
 
   def test_basic_proficiency_by_race
@@ -36,7 +40,12 @@ class IterationTwoTest < Minitest::Test
                  2013 => {math: 0.805, reading: 0.901, writing: 0.810},
                  2014 => {math: 0.800, reading: 0.855, writing: 0.789},
                }
-    assert_equal expected, testing.proficient_by_race_or_ethnicity(:asian)
+    result = testing.proficient_by_race_or_ethnicity(:asian)
+    expected.each do |year, data|
+      data.each do |subject, proficiency|
+        assert_in_delta proficiency, result[year][subject], 0.005
+      end
+    end
 
     expected = {2011=>{:math=>0.451, :reading=>0.688, :writing=>0.503},
                 2012=>{:math=>0.467, :reading=>0.75, :writing=>0.528},
@@ -45,24 +54,36 @@ class IterationTwoTest < Minitest::Test
 
     testing = str.find_by_name("WOODLAND PARK RE-2")
 
-    assert_equal expected, testing.proficient_by_race_or_ethnicity(:hispanic)
+    result = testing.proficient_by_race_or_ethnicity(:hispanic)
+    expected.each do |year, data|
+      data.each do |subject, proficiency|
+        assert_in_delta proficiency, result[year][subject], 0.005
+      end
+    end
 
-    testing = str.find_by_name("PAWNEE RE-12")
     expected = {2011=>{:math=>0.581, :reading=>0.792, :writing=>0.698},
                 2012=>{:math=>0.452, :reading=>0.773, :writing=>0.622},
                 2013=>{:math=>0.469, :reading=>0.714, :writing=>0.51},
                 2014=>{:math=>0.468, :reading=>0.006, :writing=>0.488}}
-    assert_equal expected, testing.proficient_by_race_or_ethnicity(:white)
+
+    testing = str.find_by_name("PAWNEE RE-12")
+    result = testing.proficient_by_race_or_ethnicity(:white)
+
+    expected.each do |year, data|
+      data.each do |subject, proficiency|
+        assert_in_delta proficiency, result[year][subject], 0.005
+      end
+    end
   end
 
   def test_proficiency_by_subject_and_year
     str = statewide_repo
 
     testing = str.find_by_name("ACADEMY 20")
-    assert_equal 0.653, testing.proficient_for_subject_by_grade_in_year(:math, 8, 2011)
+    assert_in_delta 0.653, testing.proficient_for_subject_by_grade_in_year(:math, 8, 2011), 0.005
 
     testing = str.find_by_name("WRAY SCHOOL DISTRICT RD-2")
-    assert_equal 0.89, testing.proficient_for_subject_by_grade_in_year(:reading, 3, 2014)
+    assert_in_delta 0.89, testing.proficient_for_subject_by_grade_in_year(:reading, 3, 2014), 0.005
 
     testing = str.find_by_name("PLATEAU VALLEY 50")
     assert_equal "N/A", testing.proficient_for_subject_by_grade_in_year(:reading, 8, 2011)
@@ -72,16 +93,16 @@ class IterationTwoTest < Minitest::Test
     str = statewide_repo
 
     testing = str.find_by_name("AULT-HIGHLAND RE-9")
-    assert_equal 0.611, testing.proficient_for_subject_by_race_in_year(:math, :white, 2012)
-    assert_equal 0.310, testing.proficient_for_subject_by_race_in_year(:math, :hispanic, 2014)
-    assert_equal 0.794, testing.proficient_for_subject_by_race_in_year(:reading, :white, 2013)
-    assert_equal 0.278, testing.proficient_for_subject_by_race_in_year(:writing, :hispanic, 2014)
+    assert_in_delta 0.611, testing.proficient_for_subject_by_race_in_year(:math, :white, 2012), 0.005
+    assert_in_delta 0.310, testing.proficient_for_subject_by_race_in_year(:math, :hispanic, 2014), 0.005
+    assert_in_delta 0.794, testing.proficient_for_subject_by_race_in_year(:reading, :white, 2013), 0.005
+    assert_in_delta 0.278, testing.proficient_for_subject_by_race_in_year(:writing, :hispanic, 2014), 0.005
 
     testing = str.find_by_name("BUFFALO RE-4")
-    assert_equal 0.65, testing.proficient_for_subject_by_race_in_year(:math, :white, 2012)
-    assert_equal 0.437, testing.proficient_for_subject_by_race_in_year(:math, :hispanic, 2014)
-    assert_equal 0.76, testing.proficient_for_subject_by_race_in_year(:reading, :white, 2013)
-    assert_equal 0.375, testing.proficient_for_subject_by_race_in_year(:writing, :hispanic, 2014)
+    assert_in_delta 0.65, testing.proficient_for_subject_by_race_in_year(:math, :white, 2012), 0.005
+    assert_in_delta 0.437, testing.proficient_for_subject_by_race_in_year(:math, :hispanic, 2014), 0.005
+    assert_in_delta 0.76, testing.proficient_for_subject_by_race_in_year(:reading, :white, 2013), 0.005
+    assert_in_delta 0.375, testing.proficient_for_subject_by_race_in_year(:writing, :hispanic, 2014), 0.005
   end
 
   def test_unknown_data_errors
@@ -131,7 +152,7 @@ class IterationTwoTest < Minitest::Test
     assert_in_delta 0.071, ha.top_statewide_test_year_over_year_growth(grade: 3).last, 0.005
 
     assert_equal "OURAY R-1", ha.top_statewide_test_year_over_year_growth(grade: 8).first
-    assert_equal 0.11, ha.top_statewide_test_year_over_year_growth(grade: 8).last, 0.005
+    assert_in_delta 0.11, ha.top_statewide_test_year_over_year_growth(grade: 8).last, 0.005
   end
 
   def test_weighting_results_by_subject
