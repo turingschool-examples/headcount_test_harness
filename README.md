@@ -45,7 +45,7 @@ To load in dependencies for the spec harness.
 
 To test your implementation against the evaluation specs, run:
 
-    $ rake
+    $ bundle exec rake
 
 ## Note on the Spec Data
 
