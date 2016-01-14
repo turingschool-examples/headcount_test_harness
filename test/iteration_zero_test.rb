@@ -3,6 +3,7 @@ require "minitest/autorun"
 require_relative "../../headcount/lib/district_repository"
 require_relative "../../headcount/lib/district"
 require_relative "../../headcount/lib/enrollment"
+require_relative "../../headcount/lib/enrollment_repository"
 require_relative "../../headcount/lib/headcount_analyst"
 
 class IterationZeroTest < Minitest::Test
