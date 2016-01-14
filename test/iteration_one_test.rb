@@ -17,7 +17,7 @@ class IterationOneTest < Minitest::Test
     e = er.find_by_name("MONTROSE COUNTY RE-1J")
 
 
-    expected = {2010=>0.738, 2011=>0.751, 2012=>0.777, 2013=>0.713, 2014=>0.757}
+    expected = { 2010 => 0.738, 2011 => 0.751, 2012 => 0.777, 2013 => 0.713, 2014 => 0.757 }
     expected.each do |k,v|
       assert_in_delta v, e.graduation_rate_by_year[k], 0.005
     end
@@ -26,8 +26,8 @@ class IterationOneTest < Minitest::Test
 
   def test_high_school_versus_kindergarten_analysis
     dr = DistrictRepository.new
-    dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                  :high_school_graduation => "./data/High school graduation rates.csv"}})
+    dr.load_data({ :enrollment => { :kindergarten => "./data/Kindergartners in full-day program.csv",
+                                  :high_school_graduation => "./data/High school graduation rates.csv" }})
     ha = HeadcountAnalyst.new(dr)
 
     assert_in_delta 0.548, ha.kindergarten_participation_against_high_school_graduation('MONTROSE COUNTY RE-1J'), 0.005

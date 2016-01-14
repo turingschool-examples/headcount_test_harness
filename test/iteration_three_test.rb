@@ -21,6 +21,50 @@ class IterationThreeTest < Minitest::Test
     assert_in_delta 0.543, ep.title_i_in_year(2015), 0.005
   end
 
+  def test_median_household_income_query_with_overlapping_and_faulty_data
+    data = {:median_household_income => {[2013, 2015] => 60000,
+                                         [2014, 2016] => 50000,
+                                         [2007, 2015] => "N/A"}}
+
+    ep = EconomicProfile.new(data)
+
+    assert_raises(InsufficientInformationError) do
+      ep.estimated_median_household_income_in_year(2008)
+    end
+    assert_equal 60000, ep.estimated_median_household_income_in_year(2013)
+    assert_equal 55000, ep.estimated_median_household_income_in_year(2014)
+  end
+
+  def test_unknown_data_errors_for_non_existent_year
+    data = {:median_household_income => {[2014, 2015] => 50000, [2013, 2014] => 60000},
+            :children_in_poverty => {2012 => 0.1845},
+            :free_or_reduced_price_lunch => {2014 => {:percentage => 0.023, :total => 100}},
+            :title_i => {2015 => 0.543},
+           }
+    ep = EconomicProfile.new(data)
+    non_existent = 2017
+
+    assert_raises(UnknownDataError) do
+      ep.estimated_median_household_income_in_year(2017)
+    end
+
+    assert_raises(UnknownDataError) do
+      ep.children_in_poverty_in_year(2017)
+    end
+
+    assert_raises(UnknownDataError) do
+      ep.free_or_reduced_price_lunch_percentage_in_year(2017)
+    end
+
+    assert_raises(UnknownDataError) do
+      ep.free_or_reduced_price_lunch_number_in_year(2017)
+    end
+
+    assert_raises(UnknownDataError) do
+      ep.title_i_in_year(2017)
+    end
+  end
+
   def test_loading_econ_profile_data
     epr = EconomicProfileRepository.new
     epr.load_data({

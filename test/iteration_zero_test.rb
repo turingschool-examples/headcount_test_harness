@@ -21,6 +21,7 @@ class IterationZeroTest < Minitest::Test
                  })
     district = dr.find_by_name("ACADEMY 20")
 
+    assert district.is_a?(District)
     assert_equal "ACADEMY 20", district.name
 
     assert_equal 7, dr.find_all_matching("WE").count
@@ -35,6 +36,14 @@ class IterationZeroTest < Minitest::Test
     truncated = all_years.map { |year, rate| [year, rate.to_s[0..4].to_f]}.to_h
     truncated.each do |k,v|
       assert_in_delta v, e.kindergarten_participation_by_year[k], 0.005
+    end
+  end
+
+  def test_kindergarten_participation_returns_error_for_non_existent_year
+    e = Enrollment.new({:name => "ACADEMY 20", :kindergarten_participation => {2010 => 0.3915, 2011 => 0.35356, 2012 => 0.2677}})
+
+    assert_raises(UnknownDataError) do
+      e.kindergarten_participation_in_year(2017)
     end
   end
 
@@ -58,6 +67,8 @@ class IterationZeroTest < Minitest::Test
     dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv"}})
     district = dr.find_by_name("GUNNISON WATERSHED RE1J")
 
+    assert district.is_a?(District)
+    assert district.enrollment.is_a?(Enrollment)
     assert_in_delta 0.144, district.enrollment.kindergarten_participation_in_year(2004), 0.005
   end
 
