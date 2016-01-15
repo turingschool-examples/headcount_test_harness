@@ -7,7 +7,7 @@ Rake::TestTask.new do |t|
   t.libs << "test"
   allowed_iterations = ["zero", "one", "two", "three", "four", "five", "six"]
   if ARGV.count > 0
-    iterations = all_years & ARGV
+    iterations = allowed_iterations & ARGV
     files = iterations.map do |i|
       "test/iteration_#{i}_test.rb"
     end

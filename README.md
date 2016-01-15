@@ -47,6 +47,20 @@ To test your implementation against the evaluation specs, run:
 
     $ bundle exec rake
 
+## Usage -- Running Specific Iterations
+
+If you want to run specific iterations, use the following format:
+
+	$ bundle exec rake test <iteration name> <iteration name>
+
+Where `<iteration name>` is `one`, `two`, `three`, etc.
+
+For example:
+
+	$ bundle exec rake test zero one two
+
+would run tests for only those iterations.
+
 ## Note on the Spec Data
 
 The "answers" for the various tests in this test harness is being compiled from
