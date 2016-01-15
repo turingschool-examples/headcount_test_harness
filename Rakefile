@@ -5,7 +5,16 @@ task default: :test
 desc 'Pass this suite to get a 3 on base functionality'
 Rake::TestTask.new do |t|
   t.libs << "test"
-  t.test_files = FileList['test/*iteration*.rb']
+  allowed_iterations = ["zero", "one", "two", "three", "four", "five", "six"]
+  if ARGV.count > 0
+    iterations = all_years & ARGV
+    files = iterations.map do |i|
+      "test/iteration_#{i}_test.rb"
+    end
+    t.test_files = FileList[*files]
+  else
+    t.test_files = FileList['test/*iteration*.rb']
+  end
   t.verbose = true
 end
 
