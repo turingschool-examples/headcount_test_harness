@@ -126,23 +126,7 @@ class IterationThreeTest < Minitest::Test
     end
   end
 
-  def test_statewide_testing_relationships
-    dr = district_repo
-    district = dr.find_by_name("ACADEMY 20")
-    statewide_test = district.statewide_test
-    assert statewide_test.is_a?(StatewideTest)
-
-    ha = HeadcountAnalyst.new(dr)
-
-    assert_equal "WILEY RE-13 JT", ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :math).first
-    assert_in_delta 0.3, ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :math).last, 0.005
-
-    assert_equal "COTOPAXI RE-3", ha.top_statewide_test_year_over_year_growth(grade: 8, subject: :reading).first
-    assert_in_delta 0.13, ha.top_statewide_test_year_over_year_growth(grade: 8, subject: :reading).last, 0.005
-
-    assert_equal "BETHUNE R-5", ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :writing).first
-    assert_in_delta 0.148, ha.top_statewide_test_year_over_year_growth(grade: 3, subject: :writing).last, 0.005
-  end
+  
 
   def statewide_repo
     str = StatewideTestRepository.new
